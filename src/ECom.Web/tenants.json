@@ -1,0 +1,31 @@
+﻿{
+  "Default": {
+    "State": "Running",
+    "Features": [
+      "Orchard.Mvc"
+    ]
+  },
+  "Supplier": {
+    "State": "Running",
+    "RequestUrlPrefix": "supplier",
+    "Features": [
+      "Orchard.Mvc",
+      "ECom.Swagger",
+      "ECom.InMemoryStore",
+      "ECom.Orders",
+      "ECom.Inventory"
+    ]
+  },
+  "Purchaser": {
+    "State": "Running",
+    "RequestUrlPrefix": "purchaser",
+    "Features": [
+      "Orchard.Mvc",
+      "ECom.Swagger",
+      "ECom.InMemoryStore",
+      "ECom.Accounts",
+      "ECom.Accounts.Contracts",
+      "ECom.Accounts.Invoicing"
+    ]
+  }
+}
