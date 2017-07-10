@@ -19,10 +19,16 @@ namespace ECom.Abstractions
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or Sets a signing hash
+        /// Gets or Sets Client Id
         /// </summary>
-        [DataMember(Name = "signinghash")]
-        public string SigningHash { get; set; }
+        [DataMember(Name = "client_id")]
+        public string ClientId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Client Secret
+        /// </summary>
+        [DataMember(Name = "client_secret")]
+        public string ClientSecret { get; set; }
     }
 
     [DataContract]

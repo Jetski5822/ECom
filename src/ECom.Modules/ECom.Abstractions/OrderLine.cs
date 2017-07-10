@@ -9,8 +9,8 @@ namespace ECom.Abstractions
         /// <summary>
         /// Gets or Sets InventoryItemId
         /// </summary>
-        [DataMember(Name = "inventoryItemId")]
-        public Guid InventoryItemId { get; set; }
+        [DataMember(Name = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Quantity

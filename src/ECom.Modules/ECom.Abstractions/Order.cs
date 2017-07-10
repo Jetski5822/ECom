@@ -16,7 +16,7 @@ namespace ECom.Abstractions
         /// <summary>
         /// Gets or Sets what is to order
         /// </summary>
-        [DataMember(Name = "lines")]
+        [DataMember(Name = "items")]
         public List<OrderLine> Lines { get; set; }
 
         /// <summary>

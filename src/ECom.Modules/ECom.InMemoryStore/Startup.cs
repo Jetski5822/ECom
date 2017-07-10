@@ -8,6 +8,7 @@ namespace ECom.InMemoryStore
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<InMemorySupplierDataStore>();
+            services.AddSingleton<InMemoryPurchaserDataStore>();
         }
     }
 }

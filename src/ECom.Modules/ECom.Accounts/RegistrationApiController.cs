@@ -18,11 +18,13 @@ namespace ECom.Accounts
         [HttpPost]
         [Route("/accounts")]
         [SwaggerOperation("Create Account")]
-        [SwaggerResponse(202, type: typeof(User))]
+        [SwaggerResponse(201, type: typeof(User))]
         [SwaggerResponse(400, type: typeof(UserError))]
         public JsonResult Create([FromBody]User body)
         {
             body.Id = Guid.NewGuid();
+            body.ClientId = "CLIENTID";
+            body.ClientSecret = "CLIENTSECRET";
             _store.Users.Add(body);
 
             return Json(body);
@@ -31,6 +33,7 @@ namespace ECom.Accounts
         [HttpDelete]
         [Route("/accounts/{accountId}")]
         [SwaggerOperation("Delete Account")]
+        [SwaggerResponse(204)]
         public IActionResult Delete(Guid accountId)
         {
             _store.Users.RemoveAll(x => x.Id == accountId);

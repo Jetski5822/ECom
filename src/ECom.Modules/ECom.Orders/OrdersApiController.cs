@@ -19,19 +19,19 @@ namespace ECom.Orders
         [HttpPost]
         [Route("/orders")]
         [SwaggerOperation("CreateOrder")]
-        [SwaggerResponse(202, type: typeof(Order))]
+        [SwaggerResponse(201, type: typeof(Order))]
         [SwaggerResponse(400, type: typeof(OrderError))]
-        public JsonResult Create([FromBody]Order body)
+        public JsonResult Create(Order body)
         {
             OrderError errors = new OrderError();
             foreach (var line in body.Lines)
             {
-                var item = _store.Inventory.FirstOrDefault(i => i.Id == line.InventoryItemId);
+                var item = _store.Inventory.FirstOrDefault(i => i.Id == line.Id);
                 if (item == null)
                 {
                     errors.Lines.Add(new OrderErrorLine
                     {
-                        InventoryItemId = line.InventoryItemId,
+                        InventoryItemId = line.Id,
                         Error = $"Inventory Item does not exist."
                     });
                 }
@@ -39,7 +39,7 @@ namespace ECom.Orders
                 {
                     errors.Lines.Add(new OrderErrorLine
                     {
-                        InventoryItemId = line.InventoryItemId,
+                        InventoryItemId = line.Id,
                         Error = $"Not enough in stock."
                     });
                 }
@@ -60,7 +60,7 @@ namespace ECom.Orders
             return Json(body);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("/orders/{orderId}")]
         [SwaggerOperation("UpdateOrder")]
         [SwaggerResponse(200, type: typeof(Order))]
@@ -72,8 +72,10 @@ namespace ECom.Orders
                 return NotFound();
             }
 
-            Delete(orderId);
-            _store.Orders.Add(body);
+            var order = _store.Orders.First(x => x.Id == orderId);
+            _store.Orders.Remove(order);
+            order.Lines = body.Lines;
+            _store.Orders.Add(order);
 
             return Json(body);
         }
@@ -96,6 +98,7 @@ namespace ECom.Orders
         [HttpDelete]
         [Route("/orders/{orderId}")]
         [SwaggerOperation("DeleteOrder")]
+        [SwaggerResponse(204)]
         public IActionResult Delete(Guid orderId)
         {
             _store.Orders.RemoveAll(x => x.Id == orderId);
