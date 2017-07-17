@@ -21,6 +21,7 @@ namespace ECom.Orders
         [SwaggerOperation("CreateOrder")]
         [SwaggerResponse(201, type: typeof(Order))]
         [SwaggerResponse(400, type: typeof(OrderError))]
+        [IgnoreAntiforgeryToken]
         public JsonResult Create(Order body)
         {
             OrderError errors = new OrderError();
